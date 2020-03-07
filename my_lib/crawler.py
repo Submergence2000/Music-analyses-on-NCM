@@ -4,11 +4,10 @@ import re
 import urllib
 import bs4
 import cloudmusic
-import base64
+import os
 
 from my_lib.myclass import Crawl_obj, Song, Album, Artist, User
-from Crypto.Cipher import AES
-
+from my_lib.save import lyrics_save
 
 cheat_headers = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -79,7 +78,13 @@ def crawl_artist(crawl_obj, soup):
         song_id = item.attrs["href"]
         artist.songs.append(Song(song_name, song_id[9:]))
     
-    #print(artist.print_songs())
+    os.chdir("cache/artists")
+    if not os.path.exists(os.getcwd() + '/' + artist.name + '/'):
+        os.mkdir(os.getcwd() + '/' + artist.name + '/')
+    os.chdir(os.getcwd() + '/' + artist.name + '/')
+    for index in range(0, len(artist.songs)):
+        lyrics_save(artist.songs[index].id)
+    os.chdir("../../../")
 
     return artist
 
@@ -95,8 +100,14 @@ def crawl_album(crawl_obj, soup):
         song_name = item.text
         song_id = item.attrs["href"]
         album.songs.append(Song(song_name, song_id[9:]))
-    
-    #print(album.print_songs())
+
+    os.chdir("cache/albums")
+    if not os.path.exists(os.getcwd() + '/' + album.name + '/'):
+        os.mkdir(os.getcwd() + '/' + album.name + '/')
+    os.chdir(os.getcwd() + '/' + album.name + '/')
+    for index in range(0, len(album.songs)):
+        lyrics_save(album.songs[index].id)
+    os.chdir("../../../")
 
     return album
 
@@ -104,8 +115,10 @@ def crawl_song(crawl_obj):
     music = cloudmusic.getMusic(crawl_obj.id)
     song = Song(music.name, crawl_obj.id)
 
-    #song.print_info()
-    
+    os.chdir("cache/songs")
+    lyrics_save(song.id)
+    os.chdir("../../")
+
     return song
 
 def crawl_user(crawl_obj):
@@ -117,5 +130,15 @@ def crawl_user(crawl_obj):
     for value in range(0, 100):
         user.songs.append(Song(music_list[value]['music'].name, music_list[value]['music'].id))
     
+    os.chdir("cache/users")
+
+    if not os.path.exists(os.getcwd() + '/' + user.name + '/'):
+        os.mkdir(os.getcwd() + '/' + user.name + '/')
+    
+    os.chdir(os.getcwd() + '/' + user.name + '/')
+    for index in range(0, len(user.songs)):
+        lyrics_save(user.songs[index].id)
+    os.chdir("../../../")
+
     #user.print_info()
     return user
