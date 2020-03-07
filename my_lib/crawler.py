@@ -32,6 +32,9 @@ def url_reslove(url):
         re_url = re.match(r'.*/#/(.*)\?id=(.*)', url)
         if re_url:
             crawl_obj.type = re_url.group(1)
+            if crawl_obj.type == "user/home":
+                crawl_obj.type = "user"
+            
             crawl_obj.id = re_url.group(2)
         else:
             print("Wrong hyperlink formats! ")
@@ -47,18 +50,17 @@ def crawl_start(crawl_obj):
     """crawl objct and return the result"""
     
     res = None
-    web_data = requests.get(crawl_obj.url, headers = cheat_headers)
-    soup = bs4.BeautifulSoup(web_data.text, 'lxml')
 
-    if crawl_obj.type == 'artist' :
-        res = crawl_artist(crawl_obj, soup)
-    elif crawl_obj.type == 'album' :
-        res = crawl_album(crawl_obj, soup)
-    elif crawl_obj.type == 'song' :
-        res = crawl_song(crawl_obj)
+    if crawl_obj.type in ['user', 'song'] :
+        res = eval('crawl_' + crawl_obj.type)(crawl_obj)
+    elif crawl_obj.type in ['artist', 'album'] :
+        web_data = requests.get(crawl_obj.url, headers = cheat_headers)
+        soup = bs4.BeautifulSoup(web_data.text, 'lxml')
+
+        eval('crawl_' + crawl_obj.type)(crawl_obj.type, soup)
     else:
         print("Object type UNKNOWN!")
-    
+   
     return res
 
 def crawl_artist(crawl_obj, soup):
@@ -102,3 +104,6 @@ def crawl_song(crawl_obj):
     song.print_info()
     
     return song
+
+def crawl_user(Craw_obj):
+    print("hit good trap")

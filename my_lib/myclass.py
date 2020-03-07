@@ -18,6 +18,22 @@ class Craw_obj():
             + ",\nID: " + self.id
         print(info)
 
+class User():
+    """Save the information of a NetEase user"""
+
+    def __init__(self, name, usr_id):
+        self.name = name
+        self.usr_id = usr_id
+        self.songs = list()
+    
+    def print_info(self):
+        id_msg = self.usr_id + ": " + self.name
+        print(id_msg)
+        for index in range(0, len(self.songs)):
+            temp_str = self.songs[index].name + " : " + str(self.songs[index].id)
+            print(temp_str)
+    
+
 class Song():
     """Save the information of a song"""
 
