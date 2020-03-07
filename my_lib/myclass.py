@@ -1,4 +1,4 @@
-class Craw_obj():
+class Crawl_obj():
     """Some values of the object you are crawling"""
 
     def __init__(self):

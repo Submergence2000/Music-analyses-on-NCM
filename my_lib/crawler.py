@@ -3,8 +3,12 @@ import requests
 import re
 import urllib
 import bs4
-from my_lib.myclass import Craw_obj, Song, Album, Artist
 import cloudmusic
+import base64
+
+from my_lib.myclass import Crawl_obj, Song, Album, Artist
+from Crypto.Cipher import AES
+
 
 cheat_headers = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -23,7 +27,7 @@ cheat_headers = {
     
 def url_reslove(url):
     """目前仅支持网易云音乐链接的解析"""
-    crawl_obj = Craw_obj()
+    crawl_obj = Crawl_obj()
 
     if re.search(r'.*music.163.com.*', url):
         crawl_obj.site = 'netease'
@@ -105,5 +109,5 @@ def crawl_song(crawl_obj):
     
     return song
 
-def crawl_user(Craw_obj):
-    print("hit good trap")
+def crawl_user(crawl_obj):
+    

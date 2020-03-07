@@ -4,7 +4,7 @@ import re
 import urllib
 import bs4
 from my_lib.crawler import url_reslove, crawl_start
-from my_lib.myclass import Craw_obj, Song, Artist
+from my_lib.myclass import Crawl_obj, Song, Artist
 
 #这里需要输入一个想要爬取内容的url(可以为歌手，专辑，或者某一首歌的链接), 具体请STFW.
 crawl_obj_url = input("Please input the url of the object you want to crawl: ")
