@@ -24,7 +24,7 @@ class User():
     def __init__(self, name, usr_id):
         self.name = name
         self.usr_id = usr_id
-        self.songs = list()
+        self.songs = []
     
     def print_info(self):
         id_msg = self.usr_id + ": " + self.name
@@ -32,7 +32,6 @@ class User():
         for index in range(0, len(self.songs)):
             temp_str = self.songs[index].name + " : " + str(self.songs[index].id)
             print(temp_str)
-    
 
 class Song():
     """Save the information of a song"""

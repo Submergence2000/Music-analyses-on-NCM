@@ -1,8 +1,3 @@
-import json
-import requests
-import re
-import urllib
-import bs4
 from my_lib.crawler import url_reslove, crawl_start
 from my_lib.myclass import Crawl_obj, Song, Artist
 
@@ -11,7 +6,6 @@ crawl_obj_url = input("Please input the url of the object you want to crawl: ")
 
 #返回的obj包括类型(歌手/歌单/歌曲), ID, 链接, 以及网站(目前仅支持网易云)
 crawl_obj = url_reslove(crawl_obj_url)
-
-crawl_obj.print_info()
+#crawl_obj.print_info()
 
 ret_val = crawl_start(crawl_obj)

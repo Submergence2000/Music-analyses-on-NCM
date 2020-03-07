@@ -6,7 +6,7 @@ import bs4
 import cloudmusic
 import base64
 
-from my_lib.myclass import Crawl_obj, Song, Album, Artist
+from my_lib.myclass import Crawl_obj, Song, Album, Artist, User
 from Crypto.Cipher import AES
 
 
@@ -24,7 +24,6 @@ cheat_headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36'
 }
 
-    
 def url_reslove(url):
     """目前仅支持网易云音乐链接的解析"""
     crawl_obj = Crawl_obj()
@@ -80,7 +79,7 @@ def crawl_artist(crawl_obj, soup):
         song_id = item.attrs["href"]
         artist.songs.append(Song(song_name, song_id[9:]))
     
-    print(artist.print_songs())
+    #print(artist.print_songs())
 
     return artist
 
@@ -97,7 +96,7 @@ def crawl_album(crawl_obj, soup):
         song_id = item.attrs["href"]
         album.songs.append(Song(song_name, song_id[9:]))
     
-    print(album.print_songs())
+    #print(album.print_songs())
 
     return album
 
@@ -105,9 +104,18 @@ def crawl_song(crawl_obj):
     music = cloudmusic.getMusic(crawl_obj.id)
     song = Song(music.name, crawl_obj.id)
 
-    song.print_info()
+    #song.print_info()
     
     return song
 
 def crawl_user(crawl_obj):
+
+    temp_user = cloudmusic.getUser(crawl_obj.id)
+    music_list = temp_user.getRecord()
+
+    user = User(temp_user.nickname, temp_user.id)
+    for value in range(0, 100):
+        user.songs.append(Song(music_list[value]['music'].name, music_list[value]['music'].id))
     
+    #user.print_info()
+    return user
