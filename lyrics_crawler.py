@@ -20,7 +20,10 @@ print("name: " + ret_val.name)
 
 data = dict()
 data['path'] = os.getcwd()
-data['name'] = ret_val.name
+
+if isinstance(ret_val, Song):
+    data['name'] = "Songs"
+else: data['name'] = ret_val.name
 
 with open(origin_path + "\\data.json", 'w', encoding='utf-8') as f:
     json.dump(data, f)

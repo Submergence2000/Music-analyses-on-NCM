@@ -1,0 +1,5 @@
+/cache
+.vscode
+data.json
+rank.txt
+my_lib/__pycache__/
