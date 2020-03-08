@@ -59,7 +59,7 @@ def crawl_start(crawl_obj):
         web_data = requests.get(crawl_obj.url, headers = cheat_headers)
         soup = bs4.BeautifulSoup(web_data.text, 'lxml')
 
-        eval('crawl_' + crawl_obj.type)(crawl_obj.type, soup)
+        res = eval('crawl_' + crawl_obj.type)(crawl_obj.type, soup)
     else:
         print("Object type UNKNOWN!")
    
@@ -84,7 +84,7 @@ def crawl_artist(crawl_obj, soup):
     os.chdir(os.getcwd() + '/' + artist.name + '/')
     for index in range(0, len(artist.songs)):
         lyrics_save(artist.songs[index].id)
-    os.chdir("../../../")
+    #os.chdir("../../../")
 
     return artist
 
@@ -107,7 +107,7 @@ def crawl_album(crawl_obj, soup):
     os.chdir(os.getcwd() + '/' + album.name + '/')
     for index in range(0, len(album.songs)):
         lyrics_save(album.songs[index].id)
-    os.chdir("../../../")
+    #os.chdir("../../../")
 
     return album
 
@@ -117,7 +117,7 @@ def crawl_song(crawl_obj):
 
     os.chdir("cache/songs")
     lyrics_save(song.id)
-    os.chdir("../../")
+    #os.chdir("../../")
 
     return song
 
@@ -138,7 +138,7 @@ def crawl_user(crawl_obj):
     os.chdir(os.getcwd() + '/' + user.name + '/')
     for index in range(0, len(user.songs)):
         lyrics_save(user.songs[index].id)
-    os.chdir("../../../")
+    #os.chdir("../../../")
 
     #user.print_info()
     return user
