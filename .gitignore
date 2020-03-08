@@ -1,4 +1,5 @@
 /cache
 .vscode
 data.json
-my_lib/__pycache__/
+rank.txt
+my_lib/__pycache__/spilt.cpython-36.pyc
