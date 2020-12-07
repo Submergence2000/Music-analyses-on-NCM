@@ -2,4 +2,6 @@
 .vscode
 data.json
 rank.txt
-my_lib/__pycache__/spilt.cpython-36.pyc
+my_lib/__pycache__
+data.json
+rank.txt
