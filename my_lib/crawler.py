@@ -124,7 +124,7 @@ def crawl_song(crawl_obj):
 def crawl_user(crawl_obj):
 
     temp_user = cloudmusic.getUser(crawl_obj.id)
-    music_list = temp_user.getRecord()
+    music_list = temp_user.getRecord(1)
 
     user = User(temp_user.nickname, temp_user.id)
     for value in range(0, 100):
